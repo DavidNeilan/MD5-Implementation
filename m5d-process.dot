@@ -1,0 +1,25 @@
+digraph G {
+    node [shape=record];
+
+    read_data             [label="Read upto 64 bytes" shape=box];
+    data_remaining        [label="Data remaining?" shape=diamond ];
+    initial_process       [label="Process Chunk" shape=box];
+    zero_unmodified_words [label="Zero unmodified words" shape=box];
+    secondary_processing  [label="Process" shape=box];
+    room_for_length       [label="Is there room to append the length" shape=diamond ];
+
+    append_length   [label="Append length" shape=box];
+
+    read_data -> data_remaining;
+    data_remaining -> zero_unmodified_words[label="No"];
+    data_remaining -> initial_process [label="Yes"];
+    initial_process -> read_data;
+    zero_unmodified_words -> "Append Sentinel" -> room_for_length;
+    room_for_length -> secondary_processing[label="No"];
+    secondary_processing -> "Zero Chunk" -> append_length;
+
+    room_for_length -> append_length[label="Yes"];
+
+    append_length -> "Process" -> "Print Digest"
+}
+
