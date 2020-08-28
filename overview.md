@@ -106,6 +106,17 @@ as a 32 character long hex string as is typical of other MD5 utilities such as `
 
 ## Complexity
 
+![alt text]( process.png "MD5 process")
+My MD5 implementation takes several steps to achieve it's objective. Firstly the incoming message is broken
+into discrete chunks. Chunks are a fixed size of 64 Bytes and are composed of 16 4 Byte "Words". 
+
+Each Chunk is read from the incoming message and a series of bitwise operations are performed as outlined in the RFC
+sec and the result is stored in a buffer. This process is repeated until a chunk is read that contains fewer than 64 
+bytes.
+
+Once the initial processing has occurred the old unmodified words are reset to zero and a single "1" bit is appended to denote the end of the message. If there is room to append the message length it is appended at this point if not the message is processed again, a new blank chunk is created and the length is appended the end in the form of two words and the chunk is again processed.
+At this stage the buffer used to store data during the manipulations is ready to be printed. It is first converted to a hexidecimal string and printed to the screen.
+
 
 ---
 
