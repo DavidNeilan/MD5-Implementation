@@ -107,6 +107,7 @@ as a 32 character long hex string as is typical of other MD5 utilities such as `
 ## Complexity
 
 ![alt text]( process.png "MD5 process")
+
 My MD5 implementation takes several steps to achieve it's objective. Firstly the incoming message is broken
 into discrete chunks. Chunks are a fixed size of 64 Bytes and are composed of 16 4 Byte "Words". 
 
